@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Analysis - Ajaykumar Baid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Trading Analysis</h1>
+                <h2>Ajaykumar Baid</h2>
+            </div>
+            <div class="header-right">
+                <div class="meta">
+                    <span class="badge">Apr '24 Analysis</span>
+                    <span class="date">19 Dec 2025</span>
+                </div>
+                <button id="themeToggle" class="theme-btn" aria-label="Toggle Theme">
+                    <span class="icon">☀️</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="Overall">Overall</button>
+            <button class="tab-btn" data-tab="AKB">AKB (RH3979)</button>
+            <button class="tab-btn" data-tab="Aruna">Aruna (CG6535)</button>
+            <button class="tab-btn" data-tab="Anurita">Anurita (BL2333)</button>
+        </div>
+
+        <!-- NEW DASHBOARD LAYOUT: Split View -->
+        <section class="dashboard-summary">
+            <!-- LEFT: Hero Card (Final Profit) -->
+            <div class="hero-card clickable" data-kpi="final">
+                <div class="hero-content">
+                    <div class="label">Final Net Profit</div>
+                    <div class="hero-value positive" id="kpiFinal">Loading...</div>
+                    <div class="unit">INR Lakhs</div>
+                </div>
+            </div>
+
+            <!-- RIGHT: Breakdown Grid (3x2) -->
+            <div class="breakdown-grid">
+                <!-- 1. EQUITY BOOKED -->
+                <div class="kpi-card clickable" data-kpi="booked">
+                    <div class="label">Equity Booked</div>
+                    <div class="value positive" id="kpiBooked">--</div>
+                </div>
+
+                <!-- 2. EQUITY RUNNING -->
+                <div class="kpi-card clickable" data-kpi="running">
+                    <div class="label">Equity Running</div>
+                    <div class="value negative" id="kpiRunning">--</div>
+                </div>
+
+                <!-- 3. F&O -->
+                <div class="kpi-card clickable" data-kpi="fno">
+                    <div class="label">F&O</div>
+                    <div class="value positive" id="kpiFnO">--</div>
+                </div>
+
+                <!-- 4. DIVIDENDS -->
+                <div class="kpi-card clickable" data-kpi="dividend">
+                    <div class="label">Dividends</div>
+                    <div class="value positive" id="kpiDividend">--</div>
+                </div>
+
+                <!-- 5. COMMODITY -->
+                <div class="kpi-card clickable" data-kpi="commodity">
+                    <div class="label">Commodity</div>
+                    <div class="value positive" id="kpiCommodity">--</div>
+                </div>
+
+                <!-- 6. MISC -->
+                <div class="kpi-card clickable" data-kpi="misc">
+                    <div class="label">Misc (Infy/Demrg)</div>
+                    <div class="value positive" id="kpiMisc">--</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breakdown Modal -->
+        <div id="breakdownModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Loading...</h3>
+                    <button class="modal-close" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <section class="charts-section insane-charts">
+            <div class="chart-container full-width">
+                <div class="chart-header-row">
+                    <div>
+                        <h3>Significant Script Performance (Impact > 0.20L)</h3>
+                        <p class="chart-desc">Stacked bars: <span style="color:#00e5ff">Realized</span> vs Unrealized
+                            (<span style="color:#228B22">Profit</span>/<span style="color:#ff3366">Loss</span>). Scroll
+                            →</p>
+                    </div>
+                    <div class="chart-filters">
+                        <button class="filter-btn active" data-filter="ALL">All</button>
+                        <button class="filter-btn" data-filter="PROFIT">Profit</button>
+                        <button class="filter-btn" data-filter="LOSS">Loss</button>
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <div class="chart-scroll-box">
+                        <canvas id="scriptBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-charts">
+                <div class="chart-container">
+                    <h3>Profit Composition</h3>
+                    <canvas id="compositionChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Top 10 Winners vs Losers</h3>
+                    <canvas id="topMoversChart"></canvas>
+                    <div class="chart-summary" id="topMoversSummary">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-table-section">
+            <h3>Detailed Breakdown</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="Symbol">Script ↕</th>
+                            <th class="text-right sortable" data-sort="Realized">Realized ↕</th>
+                            <th class="text-right sortable" data-sort="Unrealized">Unrealized ↕</th>
+                            <th class="text-right sortable active" data-sort="Total">Total ↓</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            <div class="generated-by">Generated by Antigravity</div>
+        </footer>
+    </div>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

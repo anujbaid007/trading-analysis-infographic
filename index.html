@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equity Trading Analysis - Ajaykumar Baid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Check for saved theme preference or system preference
+        function getInitialTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) return savedTheme;
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        // Apply theme immediately to prevent flash
+        const initialTheme = getInitialTheme();
+        document.documentElement.setAttribute('data-theme', initialTheme);
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-glow"></div>
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="title-group">
+                        <h1>Equity Trading Analysis</h1>
+                        <p class="subtitle">AJAYKUMAR BAID • April 2024 - December 2025</p>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <!-- Sun Icon (for Dark Mode) -->
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            style="display: none;">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <!-- Moon Icon (for Light Mode) -->
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+
+                    <div class="date-badge">
+                        <span class="date-label">Report Date</span>
+                        <span class="date-value">19 Dec 2025</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Key Metrics Section -->
+        <section class="metrics-section">
+            <div class="metric-card total-profit">
+                <div class="metric-icon profit">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2V22M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="metric-content">
+                    <span class="metric-label">Net Final Profit</span>
+                    <span class="metric-value positive">₹2.51L</span>
+                    <span class="metric-change positive">+2.51% ROI</span>
+                </div>
+                <div class="metric-glow green"></div>
+            </div>
+
+            <div class="metric-card booked-profit">
+                <div class="metric-icon booked">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path
+                            d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="metric-content">
+                    <span class="metric-label">Total Booked Profit</span>
+                    <span class="metric-value positive">₹26.84L</span>
+                    <span class="metric-change neutral">Realized Gains</span>
+                </div>
+                <div class="metric-glow blue"></div>
+            </div>
+
+            <div class="metric-card running-loss">
+                <div class="metric-icon running">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 6L13.5 15.5L8.5 10.5L1 18" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M17 6H23V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="metric-content">
+                    <span class="metric-label">Running (Unrealized)</span>
+                    <span class="metric-value negative">-₹29.35L</span>
+                    <span class="metric-change negative">Paper Loss</span>
+                </div>
+                <div class="metric-glow red"></div>
+            </div>
+
+            <div class="metric-card dividend">
+                <div class="metric-icon div-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.59 13.41L13.42 20.58C13.2343 20.766 13.0137 20.9135 12.7709 21.0141C12.5281 21.1148 12.2678 21.1666 12.005 21.1666C11.7422 21.1666 11.4819 21.1148 11.2391 21.0141C10.9963 20.9135 10.7757 20.766 10.59 20.58L2 12V2H12L20.59 10.59C20.9625 10.9647 21.1716 11.4716 21.1716 12C21.1716 12.5284 20.9625 13.0353 20.59 13.41Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M7 7H7.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="metric-content">
+                    <span class="metric-label">Total Dividends</span>
+                    <span class="metric-value positive">₹5.02L</span>
+                    <span class="metric-change positive">Passive Income</span>
+                </div>
+                <div class="metric-glow purple"></div>
+            </div>
+        </section>
+
+        <!-- Portfolio Breakdown -->
+        <section class="portfolio-section">
+            <h2 class="section-title">
+                <span class="title-icon">📊</span>
+                Portfolio Breakdown by Entity
+            </h2>
+
+            <div class="portfolio-grid">
+                <!-- AKB Card -->
+                <div class="portfolio-card akb">
+                    <div class="card-header">
+                        <div class="entity-badge">
+                            <span class="entity-icon">A</span>
+                            <span class="entity-name">AKB</span>
+                        </div>
+                        <div class="final-badge negative">
+                            <span>-₹5.70L</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY24-25</span>
+                                <span class="stat-value positive">₹5.89L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY25-26</span>
+                                <span class="stat-value positive">₹3.91L</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Running</span>
+                                <span class="stat-value negative">-₹18.24L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dividends</span>
+                                <span class="stat-value positive">₹2.74L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill negative" style="width: 65%"></div>
+                    </div>
+                </div>
+
+                <!-- ARUNA Card -->
+                <div class="portfolio-card aruna">
+                    <div class="card-header">
+                        <div class="entity-badge">
+                            <span class="entity-icon">A</span>
+                            <span class="entity-name">ARUNA</span>
+                        </div>
+                        <div class="final-badge positive">
+                            <span>+₹3.06L</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY24-25</span>
+                                <span class="stat-value positive">₹0.51L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY25-26</span>
+                                <span class="stat-value positive">₹4.53L</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Running</span>
+                                <span class="stat-value negative">-₹2.69L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dividends</span>
+                                <span class="stat-value positive">₹0.71L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill positive" style="width: 45%"></div>
+                    </div>
+                </div>
+
+                <!-- ANURITA Card -->
+                <div class="portfolio-card anurita">
+                    <div class="card-header">
+                        <div class="entity-badge">
+                            <span class="entity-icon">A</span>
+                            <span class="entity-name">ANURITA</span>
+                        </div>
+                        <div class="final-badge positive">
+                            <span>+₹5.15L</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY24-25</span>
+                                <span class="stat-value positive">₹10.28L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Booked FY25-26</span>
+                                <span class="stat-value positive">₹1.72L</span>
+                            </div>
+                        </div>
+                        <div class="stat-row">
+                            <div class="stat-item">
+                                <span class="stat-label">Running</span>
+                                <span class="stat-value negative">-₹8.42L</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Dividends</span>
+                                <span class="stat-value positive">₹1.57L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill positive" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Charts Section -->
+        <section class="charts-section">
+            <div class="chart-card profit-breakdown">
+                <h3 class="chart-title">Profit & Loss Breakdown</h3>
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar-label">Booked Profit</div>
+                        <div class="bar-container">
+                            <div class="bar positive" style="width: 85%">
+                                <span class="bar-value">₹26.84L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar-label">Running Loss</div>
+                        <div class="bar-container">
+                            <div class="bar negative" style="width: 93%">
+                                <span class="bar-value">-₹29.35L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar-label">Dividends</div>
+                        <div class="bar-container">
+                            <div class="bar dividend-bar" style="width: 16%">
+                                <span class="bar-value">₹5.02L</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar-label">Net Final</div>
+                        <div class="bar-container">
+                            <div class="bar final-bar" style="width: 8%">
+                                <span class="bar-value">₹2.51L</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card entity-comparison">
+                <h3 class="chart-title">Entity Performance Comparison</h3>
+                <div class="comparison-chart">
+                    <div class="comparison-row">
+                        <div class="entity-label">AKB</div>
+                        <div class="comparison-bars">
+                            <div class="comp-bar negative" style="width: 40%"></div>
+                        </div>
+                        <div class="comp-value negative">-₹5.70L</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="entity-label">ARUNA</div>
+                        <div class="comparison-bars">
+                            <div class="comp-bar positive" style="width: 37%"></div>
+                        </div>
+                        <div class="comp-value positive">+₹3.06L</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="entity-label">ANURITA</div>
+                        <div class="comparison-bars">
+                            <div class="comp-bar positive" style="width: 62%"></div>
+                        </div>
+                        <div class="comp-value positive">+₹5.15L</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FY Comparison -->
+        <section class="fy-section">
+            <h2 class="section-title">
+                <span class="title-icon">📅</span>
+                Financial Year Comparison
+            </h2>
+            <div class="fy-grid">
+                <div class="fy-card">
+                    <div class="fy-header">FY 2024-25</div>
+                    <div class="fy-stats">
+                        <div class="fy-stat">
+                            <span class="fy-label">Booked Profit</span>
+                            <span class="fy-value positive">₹16.68L</span>
+                        </div>
+                        <div class="fy-stat">
+                            <span class="fy-label">Dividends</span>
+                            <span class="fy-value positive">₹2.01L</span>
+                        </div>
+                        <div class="fy-total">
+                            <span class="fy-label">Total</span>
+                            <span class="fy-value total">₹18.69L</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fy-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="fy-card highlight">
+                    <div class="fy-header">FY 2025-26</div>
+                    <div class="fy-stats">
+                        <div class="fy-stat">
+                            <span class="fy-label">Booked Profit</span>
+                            <span class="fy-value positive">₹10.16L</span>
+                        </div>
+                        <div class="fy-stat">
+                            <span class="fy-label">Dividends</span>
+                            <span class="fy-value positive">₹3.01L</span>
+                        </div>
+                        <div class="fy-total">
+                            <span class="fy-label">Total</span>
+                            <span class="fy-value total">₹13.17L</span>
+                        </div>
+                    </div>
+                    <div class="current-badge">Current FY</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section class="insights-section">
+            <h2 class="section-title">
+                <span class="title-icon">💡</span>
+                Key Insights
+            </h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon winner">🏆</div>
+                    <div class="insight-content">
+                        <h4>Top Performer</h4>
+                        <p><strong>ANURITA</strong> leads with ₹5.15L net profit despite ₹8.42L running loss</p>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon warning">⚠️</div>
+                    <div class="insight-content">
+                        <h4>Attention Needed</h4>
+                        <p><strong>AKB</strong> has highest unrealized loss of ₹18.24L impacting overall returns</p>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon growth">📈</div>
+                    <div class="insight-content">
+                        <h4>Dividend Growth</h4>
+                        <p>Dividends increased by <strong>50%</strong> from FY24-25 (₹2.01L) to FY25-26 (₹3.01L)</p>
+                    </div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-icon balance">⚖️</div>
+                    <div class="insight-content">
+                        <h4>Net Positive</h4>
+                        <p>Despite heavy running losses, portfolio remains <strong>profitable at ₹2.51L</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>* Booked Profit is inclusive of Brokerage and STT/ET</p>
+            <p class="footer-note">Analysis Report • Generated for Ajaykumar Baid</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.metric-card, .portfolio-card, .chart-card, .fy-card, .insight-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate numbers
+            document.querySelectorAll('.bar').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+
+            // Theme Toggle Logic
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = document.querySelector('.sun-icon');
+            const moonIcon = document.querySelector('.moon-icon');
+            const htmlWithData = document.documentElement;
+
+            function updateIcons(theme) {
+                if (theme === 'dark') {
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                } else {
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            }
+
+            // Init icons based on initial theme
+            updateIcons(htmlWithData.getAttribute('data-theme'));
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlWithData.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                htmlWithData.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateIcons(newTheme);
+            });
+        });
+    </script>
+</body>
+
+</html>
