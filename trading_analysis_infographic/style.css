@@ -468,6 +468,8 @@ header {
 
     .chart-container {
         padding: 1rem;
+        max-width: 100%;
+        overflow: hidden;
     }
 
     .chart-container h3 {
@@ -477,10 +479,13 @@ header {
     .grid-charts .chart-container {
         min-height: 450px;
         max-height: 550px;
+        width: 100%;
+        overflow: hidden;
     }
 
     .grid-charts .chart-container canvas {
         max-height: 380px;
+        max-width: 100%;
     }
 
     .chart-header-row {
@@ -490,13 +495,18 @@ header {
 
     .data-table-section {
         padding: 1rem;
+    }
+
+    .table-responsive {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     th,
     td {
         padding: 0.6rem 0.5rem;
         font-size: 0.85rem;
+        white-space: nowrap;
     }
 
     .modal-content {
@@ -722,6 +732,8 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .grid-charts .chart-container {
@@ -750,9 +762,15 @@ header {
     overflow: hidden;
 }
 
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 500px;
 }
 
 th {
