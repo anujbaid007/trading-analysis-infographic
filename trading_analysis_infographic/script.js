@@ -300,11 +300,12 @@ function renderTopMoversChart(data) {
                 x: {
                     grid: {
                         display: true,
-                        color: 'rgba(255, 255, 255, 0.06)',
+                        color: 'rgba(255, 255, 255, 0.12)',
                         lineWidth: 1
                     },
                     ticks: {
                         color: '#9aa0a6',
+                        stepSize: 100000,
                         callback: function (value) {
                             // Format as Lakhs (e.g., -3L, -2L, -1L, 0, 1L, 2L, 3L)
                             const inLakhs = value / 100000;
@@ -316,7 +317,7 @@ function renderTopMoversChart(data) {
                 y: {
                     grid: {
                         display: true,
-                        color: 'rgba(255, 255, 255, 0.03)'
+                        color: 'rgba(255, 255, 255, 0.08)'
                     },
                     ticks: {
                         color: '#9aa0a6',
