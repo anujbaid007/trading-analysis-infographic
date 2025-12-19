@@ -300,13 +300,24 @@ function renderTopMoversChart(data) {
                 x: {
                     grid: {
                         display: true,
-                        color: 'rgba(255, 255, 255, 0.04)', // Very subtle grid lines
+                        color: 'rgba(255, 255, 255, 0.06)',
                         lineWidth: 1
                     },
-                    ticks: { color: '#9aa0a6' }
+                    ticks: {
+                        color: '#9aa0a6',
+                        callback: function (value) {
+                            // Format as Lakhs (e.g., -3L, -2L, -1L, 0, 1L, 2L, 3L)
+                            const inLakhs = value / 100000;
+                            if (inLakhs === 0) return '0';
+                            return inLakhs + 'L';
+                        }
+                    }
                 },
                 y: {
-                    grid: { display: false },
+                    grid: {
+                        display: true,
+                        color: 'rgba(255, 255, 255, 0.03)'
+                    },
                     ticks: {
                         color: '#9aa0a6',
                         autoSkip: false // Show all labels, not alternating
