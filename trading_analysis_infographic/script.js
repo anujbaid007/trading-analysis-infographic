@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isLight = document.body.classList.contains('light-mode');
         toggleIcon.textContent = isLight ? '🌙' : '☀️';
         localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        // Re-render charts with updated grid colors
+        renderDashboard(currentEntity);
     });
 
 });
@@ -267,6 +269,11 @@ function renderTopMoversChart(data) {
     const labels = combined.map(d => d.Symbol);
     const values = combined.map(d => d.Total);
 
+    // Theme-aware grid colors
+    const isLightMode = document.body.classList.contains('light-mode');
+    const gridColorX = isLightMode ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.12)';
+    const gridColorY = isLightMode ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.08)';
+
     topMoversChartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -300,7 +307,7 @@ function renderTopMoversChart(data) {
                 x: {
                     grid: {
                         display: true,
-                        color: 'rgba(255, 255, 255, 0.12)',
+                        color: gridColorX,
                         lineWidth: 1
                     },
                     ticks: {
@@ -317,7 +324,7 @@ function renderTopMoversChart(data) {
                 y: {
                     grid: {
                         display: true,
-                        color: 'rgba(255, 255, 255, 0.08)'
+                        color: gridColorY
                     },
                     ticks: {
                         color: '#9aa0a6',
