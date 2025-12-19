@@ -593,6 +593,18 @@ header {
     gap: 2rem;
 }
 
+.grid-charts .chart-container {
+    min-height: 600px;
+    max-height: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-charts .chart-container canvas {
+    flex: 1;
+    max-height: 500px;
+}
+
 @media (max-width: 900px) {
     .grid-charts {
         grid-template-columns: 1fr;

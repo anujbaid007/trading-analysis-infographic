@@ -275,74 +275,54 @@ function renderTopMoversChart(data) {
                 label: 'Total P&L',
                 data: values,
                 backgroundColor: values.map(v => v >= 0 ? '#228B22' : '#ff3366'),
-                borderRadius: 4
+                borderColor: values.map(v => v >= 0 ? 'rgba(34, 139, 34, 0.3)' : 'rgba(255, 51, 102, 0.3)'),
+                borderWidth: 2,
+                borderRadius: 4,
+                categoryPercentage: 0.7, // Controls spacing between categories
+                barPercentage: 0.8 // Controls thickness of bars within category
             }]
         },
         options: {
             indexAxis: 'y',
             responsive: true,
-            plugins: { legend: { display: false } },
-            scales: { x: { grid: { display: false } }, y: { grid: { display: false } } }
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => {
+                            return `Total: ${(ctx.parsed.x / 100000).toFixed(2)}L`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: true,
+                        color: 'rgba(255, 255, 255, 0.04)', // Very subtle grid lines
+                        lineWidth: 1
+                    },
+                    ticks: { color: '#9aa0a6' }
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: {
+                        color: '#9aa0a6',
+                        autoSkip: false // Show all labels, not alternating
+                    }
+                }
+            },
+            layout: {
+                padding: {
+                    left: 10,
+                    right: 10
+                }
+            }
         }
     });
 
-    // Populate summary stats
-    const winners = data.filter(d => d.Total > 0);
-    const losers = data.filter(d => d.Total < 0);
-    const totalWinnings = winners.reduce((sum, d) => sum + d.Total, 0);
-    const totalLosses = losers.reduce((sum, d) => sum + d.Total, 0);
-    const netPL = totalWinnings + totalLosses;
-
-    // Additional metrics
-    const winRate = data.length > 0 ? ((winners.length / data.length) * 100).toFixed(1) : 0;
-    const avgGain = winners.length > 0 ? totalWinnings / winners.length : 0;
-    const avgLoss = losers.length > 0 ? totalLosses / losers.length : 0;
-    const biggestWinner = winners.length > 0 ? winners.reduce((max, d) => d.Total > max.Total ? d : max, winners[0]) : null;
-    const biggestLoser = losers.length > 0 ? losers.reduce((min, d) => d.Total < min.Total ? d : min, losers[0]) : null;
-
-    const summaryDiv = document.getElementById('topMoversSummary');
-    if (summaryDiv) {
-        summaryDiv.innerHTML = `
-            <div class="stat-row">
-                <div class="stat-item positive-bg">
-                    <span class="stat-value">${winners.length}</span>
-                    <span class="stat-label">Winners</span>
-                </div>
-                <div class="stat-item negative-bg">
-                    <span class="stat-value">${losers.length}</span>
-                    <span class="stat-label">Losers</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value ${netPL >= 0 ? 'positive' : 'negative'}">${(netPL / 100000).toFixed(2)}L</span>
-                    <span class="stat-label">Net Equity P&L</span>
-                </div>
-            </div>
-            <div class="stat-row" style="margin-top: 1rem;">
-                <div class="stat-item">
-                    <span class="stat-value">${winRate}%</span>
-                    <span class="stat-label">Win Rate</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value positive">${(avgGain / 100000).toFixed(2)}L</span>
-                    <span class="stat-label">Avg Gain</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-value negative">${(avgLoss / 100000).toFixed(2)}L</span>
-                    <span class="stat-label">Avg Loss</span>
-                </div>
-            </div>
-            <div class="stat-row" style="margin-top: 1rem;">
-                <div class="stat-item highlight-green">
-                    <span class="stat-value">${biggestWinner ? biggestWinner.Symbol : '-'}</span>
-                    <span class="stat-label">Best: ${biggestWinner ? (biggestWinner.Total / 100000).toFixed(2) + 'L' : '-'}</span>
-                </div>
-                <div class="stat-item highlight-red">
-                    <span class="stat-value">${biggestLoser ? biggestLoser.Symbol : '-'}</span>
-                    <span class="stat-label">Worst: ${biggestLoser ? (biggestLoser.Total / 100000).toFixed(2) + 'L' : '-'}</span>
-                </div>
-            </div>
-        `;
-    }
+    // Chart summary removed to give more space to the chart
 }
 
 let currentSortColumn = 'Total';
